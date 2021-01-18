@@ -4,13 +4,13 @@ from datetime import datetime
 import maidenhead as mh
 import numpy as np
 
-filename = 'wsprspots-2020-12.csv.gz'
+filename = sys.argv[1]
 
 grad = Gradient([(   0,   32,   32,   32),
                  (   1,  255,  255,  255)])
 
-def r():
-    return random.random()*0.5
+def fixlon(x):
+    return max(-179.999, min(179.999, x))
 
 class RouteMap:
     def __init__(self):
@@ -26,10 +26,10 @@ class RouteMap:
             rxloc = mh.to_location(rxgrid)
             txloc = mh.to_location(txgrid)
             if len(txloc) == 2 and len(rxloc) == 2:
-                self.lats1.append(txloc[0]+r())
-                self.lons1.append(txloc[1]+r())
-                self.lats2.append(rxloc[0]+r())
-                self.lons2.append(rxloc[1]+r())
+                self.lats1.append(txloc[0])
+                self.lons1.append(fixlon(txloc[1]))
+                self.lats2.append(rxloc[0])
+                self.lons2.append(fixlon(rxloc[1]))
             #print(txgrid,rxgrid,txloc,rxloc)
     def draw(self, filename):
         if len(self.lons1) == len(self.lats1) == len(self.lons2) == len(self.lats2) and len(self.lons1) > 5:
@@ -58,14 +58,14 @@ def drawmaps():
                 maps[key] = map
                 print(key)
             map.addroute(txgrid,rxgrid)
-            #if key[2] == 12:
+            #if key[2] == 23:
             #    break
     return maps
 
 allmaps = drawmaps()
 for k,m in allmaps.items():
-    print (k,m)
-    pngfn = 'output/map-%d-%d-%d-%d-%d.png' % k
+    pngfn = 'output/map-%04d-%02d-%02d-%d-%d.png' % k
+    print (pngfn)
     try:
         m.draw(pngfn)
     except ValueError: # TODO???
