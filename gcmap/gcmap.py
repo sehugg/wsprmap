@@ -12,7 +12,7 @@ from gcmap.gradient import Gradient
 HALF_ROTATION = 180
 
 DEFAULT_COLS = Gradient(((0, 0, 0, 0), (0.5, 0, 0, 255), (1, 255, 255, 255)))
-DEFAULT_BG = (0, 0, 0, 0)
+DEFAULT_BG = (128, 128, 128, 0)
 
 
 class GCMapper:
