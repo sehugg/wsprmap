@@ -14,11 +14,7 @@ def fixlon(x):
 
 class RouteMap:
     def __init__(self):
-        self.lons1 = []
-        self.lats1 = []
-        self.lons2 = []
-        self.lats2 = []
-        self.counts = []
+        self.points = []
         self.routes = set()
     def addroute(self, txgrid, rxgrid, snr):
         route = (txgrid,rxgrid)
@@ -27,21 +23,20 @@ class RouteMap:
             rxloc = mh.to_location(rxgrid)
             txloc = mh.to_location(txgrid)
             if len(txloc) == 2 and len(rxloc) == 2:
-                self.lats1.append(txloc[0])
-                self.lons1.append(fixlon(txloc[1]))
-                self.lats2.append(rxloc[0])
-                self.lons2.append(fixlon(rxloc[1]))
-                intens = max(0, snr + 40)
-                self.counts.append(intens)
+                rec = (txloc[0], txloc[1], rxloc[0], rxloc[1], max(0, snr+40))
+                self.points.append(np.array(rec, np.int16))
             #print(txgrid,rxgrid,txloc,rxloc)
     def draw(self, filename):
-        if len(self.lons1) == len(self.lats1) == len(self.lons2) == len(self.lats2) and len(self.lons1) > 5:
+        if len(self.points) > 5:
+            lats1 = [r[0] for r in self.points]
+            lons1 = [fixlon(r[1]) for r in self.points]
+            lats2 = [r[2] for r in self.points]
+            lons2 = [fixlon(r[3]) for r in self.points]
+            counts = [r[4] for r in self.points]
             gcm = GCMapper(width=640, cols=grad, line_width=1.5)
-            gcm.set_data(self.lons1, self.lats1, self.lons2, self.lats2, self.counts)
+            gcm.set_data(lons1, lats1, lons2, lats2, counts)
             img = gcm.draw()
-            if os.fork() == 0:
-                img.save(filename)
-                sys.exit(0)
+            img.save(filename)
 
 
 def drawmaps():
