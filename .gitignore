@@ -3,4 +3,6 @@ data/
 include/
 lib/
 output/
+gen/
+node_modules/
 *~
