@@ -57,8 +57,8 @@ def drawmaps():
             maps[key] = map
             print(key,snr)
         map.addroute(txgrid,rxgrid,snr)
-        #if key[2] == 3:
-        #    break
+        if key[2] == 3:
+            break
     return maps
 
 allmaps = drawmaps()

@@ -12,7 +12,7 @@ from gcmap.gradient import Gradient
 HALF_ROTATION = 180
 
 DEFAULT_COLS = Gradient(((0, 0, 0, 0), (0.5, 0, 0, 255), (1, 255, 255, 255)))
-DEFAULT_BG = (0, 0, 0)
+DEFAULT_BG = (0, 0, 0, 0)
 
 
 class GCMapper:
@@ -96,7 +96,7 @@ class GCMapper:
         Returns a Python Image Library (PIL) Image object.
         '''
 
-        img = Image.new('RGB', (self.width, self.height), self.bgcol)
+        img = Image.new('RGBA', (self.width, self.height), self.bgcol)
         canvas = Draw(img)
 
         # create the projection. Here we use an equidistant cylindrical projection,
