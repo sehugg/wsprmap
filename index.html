@@ -33,7 +33,7 @@
             <filter id="myFilter">
                 <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0
                   0 1 0 0 0
-                  0 0 0 0 0
+                  0 0 0 1 0
                   0 0 0 1 0" />
             </filter>
         </defs>
@@ -45,7 +45,7 @@
             <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="https://github.com/sehugg/wsprmaps" target="_github">README</a>
+                        <a class="nav-link" href="https://github.com/sehugg/wsprmap" target="_github">README</a>
                     </li>
                 </ul>
             </div>
@@ -65,16 +65,16 @@
         </nav>
 
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-3" id="div_month">
                 Month: <select id="sel_month"></select>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" id="div_hour">
                 UTC Hour: <select id="sel_hour"></select>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" id="div_band">
                 Band: <select id="sel_band"></select>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" id="div_txdbm">
                 TX Power: <select id="sel_txdbm"></select>
             </div>
         </div>
@@ -82,7 +82,7 @@
         <div class="row">
             <div class="col-md-12 position-relative">
                 <img src="worldmap.png" width="100%" class="img-fluid position-absolute" />
-                <img id="mainimg" src="output/map-2020-12-01-7-37.png" width="100%"
+                <img id="mainimg" width="100%"
                     class="img-fluid position-absolute map-overlay" />
             </div>
         </div>
